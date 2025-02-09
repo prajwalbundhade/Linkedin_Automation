@@ -2,7 +2,7 @@ const express = require("express");
 const axios = require("axios");
 const cors = require("cors");
 const app = express();
-
+const { sendToWhatsAppGroup } = require('./whatsapp-bot');
 app.use(express.json());
 app.use(cors());
 
@@ -47,6 +47,11 @@ app.post("/post-job", async (req, res) => {
                 }
             }
         );
+
+        setTimeout(async () => {
+            await sendToWhatsAppGroup("🚀 LearnerBits.com | Jobs | 💡 Internships | Placement Prep 1", message);
+            await sendToWhatsAppGroup("🚀 LearnerBits.com | Jobs | 💡 Internships | Placement Prep 2", message);
+        }, 5000); 
 
         res.json({ success: true, message: "Job posted successfully!" });
     } catch (error) {
